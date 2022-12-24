@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "194130455038",
+    "project_id": "worldcup-1a560",
+    "storage_bucket": "worldcup-1a560.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:194130455038:android:ebc935f57a505e4ae2f8af",
+        "android_client_info": {
+          "package_name": "com.ahmedmadhoun.worldcup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "194130455038-31n70vkibk66m03j7u8pmhppjrjosk70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMFdMJxr2JE1ytPWE-rvCl1qd7Hzi6xUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "194130455038-31n70vkibk66m03j7u8pmhppjrjosk70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

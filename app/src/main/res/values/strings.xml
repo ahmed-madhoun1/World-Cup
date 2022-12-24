@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WorldCup</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="round_32_message_error">You can just select two teams</string>
+    <string name="eliminated_rounds_error_message">You can just select one team</string>
+</resources>
