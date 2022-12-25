@@ -57,7 +57,7 @@ class NationalTeamsViewModel @Inject constructor(
 
 
     fun insertNationalTeam(nationalTeam: NationalTeam) = viewModelScope.launch {
-        repository.insertNationalTeam(nationalTeam.copy(id = Random.nextInt(5, 2000)))
+        repository.insertNationalTeam(nationalTeam.copy(id = Random.nextInt(2000, 5000)))
 
         _insertNationalTeamStatus.postValue(Event(Resource.success(nationalTeam)))
         //        setCurImageUrl("")

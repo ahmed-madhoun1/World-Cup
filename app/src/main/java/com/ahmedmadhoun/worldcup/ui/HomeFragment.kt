@@ -17,6 +17,7 @@ import com.ahmedmadhoun.worldcup.adapters.NationalTeamsEliminationAdapter
 import com.ahmedmadhoun.worldcup.adapters.Rounds
 import com.ahmedmadhoun.worldcup.data.local.NationalTeam
 import com.ahmedmadhoun.worldcup.databinding.FragmentHomeBinding
+import com.google.android.datatransport.cct.internal.LogEvent
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -57,40 +58,40 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
 
         binding.apply {
             fabNext.setOnClickListener {
-                if (page < 5) {
+                if (page < 4) {
                     page++
                     when (page) {
                         0 -> {
                             page = 0
-                            if(!viewModel.isRecyclerViewActive.value!!){
+                            if (!viewModel.isRecyclerViewActive.value!! && round32List.isEmpty()) {
                                 viewModel.getData(0)
                             }
                         }
                         1 -> {
                             page = 1
                             fabPrev.visibility = View.VISIBLE
-                            if(!viewModel.isRecyclerViewActive.value!!) {
+                            if (!viewModel.isRecyclerViewActive.value!!&& round16List.isEmpty()) {
                                 viewModel.getData(1)
                             }
                         }
                         2 -> {
                             page = 2
                             fabPrev.visibility = View.VISIBLE
-                            if(!viewModel.isRecyclerViewActive.value!!) {
+                            if (!viewModel.isRecyclerViewActive.value!!&& round8List.isEmpty()) {
                                 viewModel.getData(2)
                             }
                         }
                         3 -> {
                             page = 3
                             fabPrev.visibility = View.VISIBLE
-                            if(!viewModel.isRecyclerViewActive.value!!) {
+                            if (!viewModel.isRecyclerViewActive.value!!&& round4List.isEmpty()) {
                                 viewModel.getData(3)
                             }
                         }
                         4 -> {
                             page = 4
                             fabPrev.visibility = View.VISIBLE
-                            if(!viewModel.isRecyclerViewActive.value!!) {
+                            if (!viewModel.isRecyclerViewActive.value!!&& round2List.isEmpty()) {
                                 viewModel.getData(4)
                             }
                         }
@@ -200,7 +201,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                     Log.e("nationalTeams", "Read from database ")
                     // deactivate recycler view
                     fabClicked(nationalTeams)
-
                 }
             }
         }
@@ -218,93 +218,157 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             }
             round32List.addAll(dList)
             round16List.addAll(selectedList)
-            Log.e("TAG", "list: ${dList}", )
-            Log.e("TAG", "list: ${dList.size}", )
-            Log.e("TAG", "round32List: ${round32List}", )
-            Log.e("TAG", "round32List: ${round32List.size}", )
-            Log.e("TAG", "round16List: ${round16List}", )
-            Log.e("TAG", "round16List: ${round16List.size}", )
-            Log.e("TAG", "selectedList: ${selectedList.size}", )
-            Log.e("TAG", "selectedList: ${selectedList}", )
+            Log.e("TAG", "list: ${dList}")
+            Log.e("TAG", "list: ${dList.size}")
+            Log.e("TAG", "round32List: ${round32List}")
+            Log.e("TAG", "round32List: ${round32List.size}")
+            Log.e("TAG", "selectedList: ${selectedList.size}")
+            Log.e("TAG", "selectedList: ${selectedList}")
+            selectedList.clear()
         }
     }
 
     private fun setupRound8() {
-        selectedList.forEach {
-            when (it.group) {
-                1 -> {
-                    it.group = 0
-                }
-                2 -> {
-                    it.group = 1
-                }
-                3 -> {
-                    it.group = 1
-                }
-                4 -> {
-                    it.group = 2
-                }
-                5 -> {
-                    it.group = 2
-                }
-                6 -> {
-                    it.group = 3
-                }
-                7 -> {
-                    it.group = 3
+        if (selectedList.size == 8) {
+            selectedList.forEach {
+                when (it.group) {
+                    1 -> {
+                        it.group = 0
+                    }
+                    2 -> {
+                        it.group = 1
+                    }
+                    3 -> {
+                        it.group = 1
+                    }
+                    4 -> {
+                        it.group = 2
+                    }
+                    5 -> {
+                        it.group = 2
+                    }
+                    6 -> {
+                        it.group = 3
+                    }
+                    7 -> {
+                        it.group = 3
+                    }
                 }
             }
+            val keysOfB = selectedList.map { it.id }
+            round16List.removeAll {
+                it.id in keysOfB
+            }
+            selectedList.forEach {
+                round16List.add(it)
+            }
+            round8List.addAll(selectedList)
+            Log.e("TAG", "round16List: ${round16List}")
+            Log.e("TAG", "round16List: ${round16List.size}")
+            Log.e("TAG", "selectedList: ${selectedList.size}")
+            Log.e("TAG", "selectedList: ${selectedList}")
+            Log.e("TAG", "round8List: ${round8List.size}")
+            Log.e("TAG", "round8List: ${round8List}")
+            selectedList.clear()
         }
-        round8List.clear()
-        round8List.addAll(selectedList)
-        Log.e("TAG", "round8List: ${round8List}", )
-        Log.e("TAG", "round8List: ${round8List.size}", )
-        selectedList.clear()
     }
 
     private fun setupRound4() {
-        selectedList.forEach {
-            when (it.group) {
-                1 -> {
-                    it.group = 0
-                }
-                2 -> {
-                    it.group = 1
-                }
-                3 -> {
-                    it.group = 1
+        if (selectedList.size == 4) {
+            selectedList.forEach {
+                when (it.group) {
+                    1 -> {
+                        it.group = 0
+                    }
+                    2 -> {
+                        it.group = 1
+                    }
+                    3 -> {
+                        it.group = 1
+                    }
                 }
             }
+            val keysOfB = selectedList.map { it.id }
+            round8List.removeAll {
+                it.id in keysOfB
+            }
+            selectedList.forEach {
+                round8List.add(it)
+            }
+            round4List.addAll(selectedList)
+            Log.e("TAG", "round8List: ${round8List}")
+            Log.e("TAG", "round8List: ${round8List.size}")
+            Log.e("TAG", "selectedList: ${selectedList.size}")
+            Log.e("TAG", "selectedList: ${selectedList}")
+            selectedList.clear()
         }
-        round4List.clear()
-        round4List.addAll(selectedList)
-        Log.e("TAG", "round4List: ${round4List}", )
-        Log.e("TAG", "round4List: ${round4List.size}", )
     }
 
     private fun setupRound2() {
-        selectedList.forEach {
-            when (it.group) {
-                1 -> {
-                    it.group = 0
+        if (selectedList.size == 2) {
+            selectedList.forEach {
+                when (it.group) {
+                    1 -> {
+                        it.group = 0
+                    }
                 }
             }
+            val keysOfB = selectedList.map { it.id }
+            round4List.removeAll {
+                it.id in keysOfB
+            }
+            selectedList.forEach {
+                round4List.add(it)
+            }
+            round2List.addAll(selectedList)
+            Log.e("TAG", "round4List: ${round4List}")
+            Log.e("TAG", "round4List: ${round4List.size}")
+            Log.e("TAG", "selectedList: ${selectedList.size}")
+            Log.e("TAG", "selectedList: ${selectedList}")
+            Log.e("TAG", "round2List: ${round2List.size}")
+            Log.e("TAG", "round2List: ${round2List}")
+            selectedList.clear()
         }
-        round2List.clear()
-        round2List.addAll(selectedList)
-        Log.e("TAG", "round2List: ${round2List}", )
-        Log.e("TAG", "round2List: ${round2List.size}", )
     }
 
     private fun setupRound16Deactivate() {
-        round16List.sortedBy { it.group }
-        Log.e("asdfsadf", "setupRound16Deactivate => $round16List size => ${round16List.size}", )
+        var group = 0
+        val round8Items = round16List.filter { it.round == Rounds.Round16.round }
+        val round4Items = round16List.filter { it.round == Rounds.Round8.round }
+        round16List.clear()
+        round8Items.zip(round4Items).forEach { pair ->
+            pair.first.group = group
+            pair.second.group = group
+            round16List.add(pair.first)
+            round16List.add(pair.second)
+            group += 1
+        }
+        Log.e("asdfsassdf", "round32List: ${round32List}")
+        Log.e("asdfsassdf", "round32List: ${round32List.size}")
+        Log.e("asdfsassdf", "round16List: ${round16List}")
+        Log.e("asdfsassdf", "round16List: ${round16List.size}")
+        Log.e("asdfsassdf", "round8List: ${round8List}")
+        Log.e("asdfsassdf", "round8List: ${round8List.size}")
+        Log.e("asdfsassdf", "round4List: ${round4List}")
+        Log.e("asdfsassdf", "round4List: ${round4List.size}")
+        Log.e("asdfsassdf", "round2List: ${round2List}")
+        Log.e("asdfsassdf", "round2List: ${round2List.size}")
     }
 
     private fun setupRound8Deactivate() {
+        Log.e("asdfsassdf", "round32List: ${round32List}")
+        Log.e("asdfsassdf", "round32List: ${round32List.size}")
+        Log.e("asdfsassdf", "round16List: ${round16List}")
+        Log.e("asdfsassdf", "round16List: ${round16List.size}")
+        Log.e("asdfsassdf", "round8List: ${round8List}")
+        Log.e("asdfsassdf", "round8List: ${round8List.size}")
+        Log.e("asdfsassdf", "round4List: ${round4List}")
+        Log.e("asdfsassdf", "round4List: ${round4List.size}")
+        Log.e("asdfsassdf", "round2List: ${round2List}")
+        Log.e("asdfsassdf", "*************************************************")
         var group = 0
         val round8Items = round8List.filter { it.round == Rounds.Round8.round }
-        val round4Items = round8List.filter { it.round >= Rounds.Round4.round }
+        val round4Items = round8List.filter { it.round == Rounds.Round4.round }
         round8List.clear()
         round8Items.zip(round4Items).forEach { pair ->
             pair.first.group = group
@@ -313,13 +377,22 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             round8List.add(pair.second)
             group += 1
         }
-        round8List.addAll(round8List.sortedBy { it.group })
+        Log.e("asdfsassdf", "round32List: ${round32List}")
+        Log.e("asdfsassdf", "round32List: ${round32List.size}")
+        Log.e("asdfsassdf", "round16List: ${round16List}")
+        Log.e("asdfsassdf", "round16List: ${round16List.size}")
+        Log.e("asdfsassdf", "round8List: ${round8List}")
+        Log.e("asdfsassdf", "round8List: ${round8List.size}")
+        Log.e("asdfsassdf", "round4List: ${round4List}")
+        Log.e("asdfsassdf", "round4List: ${round4List.size}")
+        Log.e("asdfsassdf", "round2List: ${round2List}")
+        Log.e("asdfsassdf", "round2List: ${round2List.size}")
     }
 
     private fun setupRound4Deactivate() {
         var group = 0
         val round8Items = round4List.filter { it.round == Rounds.Round4.round }
-        val round4Items = round4List.filter { it.round >= Rounds.Round2.round }
+        val round4Items = round4List.filter { it.round == Rounds.Round2.round }
         round4List.clear()
         round8Items.zip(round4Items).forEach { pair ->
             pair.first.group = group
@@ -328,22 +401,46 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             round4List.add(pair.second)
             group += 1
         }
-        round4List.addAll(round4List.sortedBy { it.group })
+        Log.e("asdfsassdf", "round32List: ${round32List}")
+        Log.e("asdfsassdf", "round32List: ${round32List.size}")
+        Log.e("asdfsassdf", "round16List: ${round16List}")
+        Log.e("asdfsassdf", "round16List: ${round16List.size}")
+        Log.e("asdfsassdf", "round8List: ${round8List}")
+        Log.e("asdfsassdf", "round8List: ${round8List.size}")
+        Log.e("asdfsassdf", "round4List: ${round4List}")
+        Log.e("asdfsassdf", "round4List: ${round4List.size}")
+        Log.e("asdfsassdf", "round2List: ${round2List}")
+        Log.e("asdfsassdf", "round2List: ${round2List.size}")
     }
 
     private fun setupRound2Deactivate() {
-        var group = 0
-        val round8Items = round2List.filter { it.round == Rounds.Round2.round }
-        val round4Items = round2List.filter { it.round == Rounds.Winner.round }
-        round2List.clear()
-        round8Items.zip(round4Items).forEach { pair ->
-            pair.first.group = group
-            pair.second.group = group
-            round2List.add(pair.first)
-            round2List.add(pair.second)
-            group += 1
+        val group = 0
+        round2List.forEachIndexed { index, nationalTeam ->
+            round2List[index] = nationalTeam.copy(group = group)
         }
-        round2List.addAll(round2List.sortedBy { it.group })
+        Log.e("asdfsassdf", "round32List: ${round32List}")
+        Log.e("asdfsassdf", "round32List: ${round32List.size}")
+        Log.e("asdfsassdf", "round16List: ${round16List}")
+        Log.e("asdfsassdf", "round16List: ${round16List.size}")
+        Log.e("asdfsassdf", "round8List: ${round8List}")
+        Log.e("asdfsassdf", "round8List: ${round8List.size}")
+        Log.e("asdfsassdf", "round4List: ${round4List}")
+        Log.e("asdfsassdf", "round4List: ${round4List.size}")
+        Log.e("asdfsassdf", "round2List: ${round2List}")
+        Log.e("asdfsassdf", "round2List: ${round2List.size}")
+    }
+
+    private fun setupWinner() {
+        if (selectedList.size == 1) {
+            val keysOfB = selectedList.map { it.id }
+            round2List.removeAll {
+                it.id in keysOfB
+            }
+            selectedList.forEach {
+                round2List.add(it.copy(round = Rounds.Winner.round))
+            }
+            selectedList.clear()
+        }
     }
 
     private fun setupFinal() {
@@ -352,64 +449,72 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             round32List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 0))
             }
+            Log.e("FINAL", "setupFinal: ${round32List}")
+            Log.e("FINAL", "setupFinal: ${round32List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round16List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 1))
             }
+            Log.e("FINAL", "setupFinal: ${round16List}")
+            Log.e("FINAL", "setupFinal: ${round16List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round8List.forEach {
-                viewModel.insertNationalTeam(it.copy(listType = 2))
+                val item = it.copy(listType = 2)
+                viewModel.insertNationalTeam(item)
+                Log.e("FINALAA", "setupFinal: ${item}")
             }
+            Log.e("FINAL", "setupFinal: ${round8List}")
+            Log.e("FINALAA", "setupFinal: ${round8List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round4List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 3))
             }
+            Log.e("FINAL", "setupFinal: ${round4List}")
+            Log.e("FINAL", "setupFinal: ${round4List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round2List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 4))
             }
+            Log.e("FINAL", "setupFinal: ${round2List}")
+            Log.e("FINAL", "setupFinal: ${round2List.size}")
         }
-
-        Log.e("DOG", "round32List: ${round32List.size}", )
-        Log.e("DOG", "round16List: ${round16List.size}", )
-        Log.e("DOG", "round8List: ${round8List.size}", )
-        Log.e("DOG", "round4List: ${round4List.size}", )
-        Log.e("DOG", "round2List: ${round2List.size}", )
-
         Toast.makeText(requireActivity(), "Items Added", Toast.LENGTH_SHORT).show()
     }
 
     private fun fabClicked(nationalTeams: List<NationalTeam>) {
         if (!viewModel.isRecyclerViewActive.value!!) {
-            Log.e("FFFFFFFF", "I AMMM FUCKIN HEREEEEEEEEEEE", )
-            when(nationalTeams[0].listType){
+            Log.e("FFFFFFFF", "I AMMM FUCKIN HEREEEEEEEEEEE")
+            when (nationalTeams[0].listType) {
                 0 -> {
                     list.addAll(nationalTeams)
                     round32List.addAll(nationalTeams)
-                    Log.e("asdfsadf1", "round32List=> $round32List size => ${round32List.size}", )
+                    Log.e("asdfsadf1", "round32List=> $round32List size => ${round32List.size}")
                 }
                 1 -> {
                     round16List.addAll(nationalTeams)
-                    Log.e("asdfsadf", "round16List=> $round16List size => ${round16List.size}", )
+                    Log.e("asdfsadf", "round16List=> $round16List size => ${round16List.size}")
 
                 }
                 2 -> {
                     round8List.addAll(nationalTeams)
-                    Log.e("LISTS", "round8List=> $round8List size => ${round8List.size}", )
+                    Log.e(
+                        "ggggggggggggg",
+                        "round8List=> $nationalTeams size => ${nationalTeams.size}"
+                    )
 
                 }
                 3 -> {
                     round4List.addAll(nationalTeams)
-                    Log.e("LISTS", "round4List=> $round4List size => ${round4List.size}", )
+                    Log.e("LISTS", "round4List=> $round4List size => ${round4List.size}")
 
                 }
                 4 -> {
                     round2List.addAll(nationalTeams)
-                    Log.e("LISTS", "round2List=> $round2List size => ${round2List.size}", )
+                    Log.e("LISTS", "round2List=> $round2List size => ${round2List.size}")
 
                 }
             }
@@ -421,8 +526,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             } else if (round16List.isNotEmpty() && page == 1) {
                 setupRound16Deactivate()
                 setupAdapterWhenRecyclerDeactivate(round16List, Rounds.Round16)
-                Log.e("LISTS", "fabClicked: IAMMMMMMMMMMMMMMMMMM", )
-                Log.e("LISTS", "round16List: ${round16List}", )
             } else if (round8List.isNotEmpty() && round16List.isNotEmpty() && page == 2) {
                 setupRound8Deactivate()
                 setupAdapterWhenRecyclerDeactivate(round8List, Rounds.Round8)
@@ -442,35 +545,167 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                         NationalTeam(id = 1, name = "QATAR", round = 0, group = 0, listType = 0),
                         NationalTeam(id = 2, name = "ECUADOR", round = 0, group = 0, listType = 0),
                         NationalTeam(id = 13, name = "SENEGAL", round = 0, group = 0, listType = 0),
-                        NationalTeam(id = 11, name = "NETHERLANDS", round = 0, group = 0, listType = 0),
-                        NationalTeam(id = 132, name = "ENGLAND", round = 0, group = 1, listType = 0),
+                        NationalTeam(
+                            id = 11,
+                            name = "NETHERLANDS",
+                            round = 0,
+                            group = 0,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 132,
+                            name = "ENGLAND",
+                            round = 0,
+                            group = 1,
+                            listType = 0
+                        ),
                         NationalTeam(id = 14, name = "IRAN", round = 0, group = 1, listType = 0),
                         NationalTeam(id = 15, name = "USA", round = 0, group = 1, listType = 0),
                         NationalTeam(id = 16, name = "WALES", round = 0, group = 1, listType = 0),
-                        NationalTeam(id = 17, name = "ARGENTINA", round = 0, group = 2, listType = 0),
-                        NationalTeam(id = 18, name = "SAUDI ARABIA", round = 0, group = 2, listType = 0),
+                        NationalTeam(
+                            id = 17,
+                            name = "ARGENTINA",
+                            round = 0,
+                            group = 2,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 18,
+                            name = "SAUDI ARABIA",
+                            round = 0,
+                            group = 2,
+                            listType = 0
+                        ),
                         NationalTeam(id = 81, name = "MEXICO", round = 0, group = 2, listType = 0),
                         NationalTeam(id = 19, name = "POLAND", round = 0, group = 2, listType = 0),
                         NationalTeam(id = 61, name = "FRANCE", round = 0, group = 3, listType = 0),
-                        NationalTeam(id = 121, name = "AUSTRALIA", round = 0, group = 3, listType = 0),
-                        NationalTeam(id = 1123, name = "DENMARK", round = 0, group = 3, listType = 0),
-                        NationalTeam(id = 1435, name = "TUNISIA", round = 0, group = 3, listType = 0),
-                        NationalTeam(id = 121412, name = "SPAIN", round = 0, group = 4, listType = 0),
-                        NationalTeam(id = 1214124, name = "COSTA RICA", round = 0, group = 4, listType = 0),
-                        NationalTeam(id = 3461, name = "GERMANY", round = 0, group = 4, listType = 0),
-                        NationalTeam(id = 143568, name = "JAPAN", round = 0, group = 4, listType = 0),
-                        NationalTeam(id = 5367351, name = "BELGIUM", round = 0, group = 5, listType = 0),
-                        NationalTeam(id = 132453, name = "CANADA", round = 0, group = 5, listType = 0),
-                        NationalTeam(id = 23581, name = "MOROCCO", round = 0, group = 5, listType = 0),
-                        NationalTeam(id = 180869, name = "CROATIA", round = 0, group = 5, listType = 0),
-                        NationalTeam(id = 1608, name = "BRAZIL", round = 0, group = 6, listType = 0),
-                        NationalTeam(id = 1570, name = "SERBIA", round = 0, group = 6, listType = 0),
-                        NationalTeam(id = 12004, name = "SWITZERLAND", round = 0, group = 6, listType = 0),
-                        NationalTeam(id = 17563, name = "CAMEROON", round = 0, group = 6, listType = 0),
+                        NationalTeam(
+                            id = 121,
+                            name = "AUSTRALIA",
+                            round = 0,
+                            group = 3,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 1123,
+                            name = "DENMARK",
+                            round = 0,
+                            group = 3,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 1435,
+                            name = "TUNISIA",
+                            round = 0,
+                            group = 3,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 121412,
+                            name = "SPAIN",
+                            round = 0,
+                            group = 4,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 1214124,
+                            name = "COSTA RICA",
+                            round = 0,
+                            group = 4,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 3461,
+                            name = "GERMANY",
+                            round = 0,
+                            group = 4,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 143568,
+                            name = "JAPAN",
+                            round = 0,
+                            group = 4,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 5367351,
+                            name = "BELGIUM",
+                            round = 0,
+                            group = 5,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 132453,
+                            name = "CANADA",
+                            round = 0,
+                            group = 5,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 23581,
+                            name = "MOROCCO",
+                            round = 0,
+                            group = 5,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 180869,
+                            name = "CROATIA",
+                            round = 0,
+                            group = 5,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 1608,
+                            name = "BRAZIL",
+                            round = 0,
+                            group = 6,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 1570,
+                            name = "SERBIA",
+                            round = 0,
+                            group = 6,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 12004,
+                            name = "SWITZERLAND",
+                            round = 0,
+                            group = 6,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 17563,
+                            name = "CAMEROON",
+                            round = 0,
+                            group = 6,
+                            listType = 0
+                        ),
                         NationalTeam(id = 304, name = "GHANA", round = 0, group = 7, listType = 0),
-                        NationalTeam(id = 109871, name = "PORTUGAL", round = 0, group = 7, listType = 0),
-                        NationalTeam(id = 12134076, name = "SOUTH KOREA", round = 0, group = 7, listType = 0),
-                        NationalTeam(id = 983214, name = "URUGUAY", round = 0, group = 7, listType = 0),
+                        NationalTeam(
+                            id = 109871,
+                            name = "PORTUGAL",
+                            round = 0,
+                            group = 7,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 12134076,
+                            name = "SOUTH KOREA",
+                            round = 0,
+                            group = 7,
+                            listType = 0
+                        ),
+                        NationalTeam(
+                            id = 983214,
+                            name = "URUGUAY",
+                            round = 0,
+                            group = 7,
+                            listType = 0
+                        ),
                     )
                 )
                 val adapter = NationalTeamsAdapter(list.groupBy {
@@ -479,14 +714,17 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                 binding.recyclerView.adapter = adapter
                 selectedList.clear()
                 Log.e("NEW", "selectedList after => $selectedList ")
-                Log.e("NEW", "********************************************************************************************************************************************************************************************** ",)
+                Log.e(
+                    "NEW",
+                    "********************************************************************************************************************************************************************************************** ",
+                )
             } else if (page == 1) {
                 Log.e("NEW", "Second page => $page ")
                 Log.e("NEW", "selectedList before => $selectedList ")
                 setupRound16()
                 setupAdapter(Rounds.Round16, round16List)
-                Log.e("round32List", "round32List: ${round32List}", )
-                Log.e("round32List", "round16List: ${round16List}", )
+                Log.e("round32List", "round32List: ${round32List}")
+                Log.e("round32List", "round16List: ${round16List}")
                 selectedList.clear()
                 Log.e("NEW", "selectedList after => $selectedList ")
                 Log.e(
@@ -531,11 +769,27 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                     "********************************************************************************************************************************************************************************************** ",
                 )
             } else if (selectedList.size == 1 && round2List.isNotEmpty()) {
+                setupWinner()
                 setupFinal()
             } else {
                 Toast.makeText(requireActivity(), "Select team", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    fun sortByGroup(list: MutableList<NationalTeam>, round: Rounds): MutableList<NationalTeam> {
+        var group = 0
+        val round8Items = list.filter { it.round == round.round }
+        val round4Items = list.filter { it.round == round.round + 1 }
+        list.clear()
+        round8Items.zip(round4Items).forEach { pair ->
+            pair.first.group = group
+            pair.second.group = group
+            list.add(pair.first)
+            list.add(pair.second)
+            group += 1
+        }
+        return list
     }
 
 }
