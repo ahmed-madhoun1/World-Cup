@@ -11,4 +11,5 @@
     <color name="grayDark">#4BB543</color>
     <color name="textColor">#3D3D3D</color>
     <color name="buttonColor">#1088FF</color>
+    <color name="buttonDangerColor">#C63333</color>
 </resources>

@@ -11,89 +11,47 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom"
         android:layout_marginHorizontal="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabNext"
         android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="18dp"
         app:backgroundTint="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="18dp"
-        android:layout_height="50dp"
-        tools:ignore="ContentDescription"/>
+        tools:ignore="ContentDescription" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDeleteAll"
-        android:layout_width="50dp"
-        app:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="18dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="ContentDescription"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabPrev"
         android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="18dp"
         android:visibility="gone"
         app:backgroundTint="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="18dp"
-        android:layout_height="50dp"
-        tools:ignore="ContentDescription"/>
-
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.HomeFragment">
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="bottom"
-        android:layout_marginHorizontal="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/fabNext"
-        />
+        tools:ignore="ContentDescription" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/fabNext"
+        android:id="@+id/saveDataBtn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginBottom="0dp"
+        android:text="Save"
+        android:visibility="gone"
         app:backgroundTint="@color/buttonColor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="0dp"
-        android:text="Next">
-
-    </com.google.android.material.button.MaterialButton>
-
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
--->
+
+

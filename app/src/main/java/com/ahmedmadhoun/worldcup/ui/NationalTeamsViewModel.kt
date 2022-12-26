@@ -11,6 +11,7 @@ import com.ahmedmadhoun.worldcup.repositories.NationalTeamsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.random.Random
@@ -33,34 +34,18 @@ class NationalTeamsViewModel @Inject constructor(
         nationalTeams = repository.observeAllNationalTeams(listType = listType)
     }
 
-    fun deleteAllNationalTeams(){
-        viewModelScope.launch(Dispatchers.Default) {
+    fun deleteAllNationalTeams(): Job {
+        return viewModelScope.launch(Dispatchers.Default) {
             repository.deleteAllNationalTeams()
         }
     }
-
-
-//    private val _curImageUrl = MutableLiveData<String>()
-//    val curImageUrl: LiveData<String> = _curImageUrl
-
-    private val _insertNationalTeamStatus = MutableLiveData<Event<Resource<NationalTeam>>>()
-    val insertNationalTeamStatus: LiveData<Event<Resource<NationalTeam>>> =
-        _insertNationalTeamStatus
-
-//    fun setCurImageUrl(url: String) {
-//        _curImageUrl.postValue(url)
-//    }
 
     fun deleteNationalTeam(nationalTeam: NationalTeam) = viewModelScope.launch {
         repository.deleteNationalTeam(nationalTeam)
     }
 
-
     fun insertNationalTeam(nationalTeam: NationalTeam) = viewModelScope.launch {
         repository.insertNationalTeam(nationalTeam.copy(id = Random.nextInt(2000, 5000)))
-
-        _insertNationalTeamStatus.postValue(Event(Resource.success(nationalTeam)))
-        //        setCurImageUrl("")
     }
 
 }

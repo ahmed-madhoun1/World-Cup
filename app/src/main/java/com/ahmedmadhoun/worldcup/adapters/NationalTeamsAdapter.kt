@@ -1,3 +1,4 @@
+
 package com.ahmedmadhoun.worldcup.adapters
 
 import android.graphics.Color
@@ -90,21 +91,20 @@ class NationalTeamsAdapter @Inject constructor(
 
             if (team1.round >= round.round + 1 || team1.round == Rounds.Winner.round) {
                 (row1.team1 as MaterialTextView).setTextColor(Color.WHITE)
-                row1.setBackgroundResource(R.color.grayDark)
+                row1.setBackgroundResource(R.drawable.team_shape_selected)
             }
             if (team2.round >= round.round + 1 || team2.round == Rounds.Winner.round) {
                 (row2.team2 as MaterialTextView).setTextColor(Color.WHITE)
-                row2.setBackgroundResource(R.color.grayDark)
+                row2.setBackgroundResource(R.drawable.team_shape_selected)
             }
             if (team3.round >= round.round + 1 || team3.round == Rounds.Winner.round) {
                 (row3.team3 as MaterialTextView).setTextColor(Color.WHITE)
-                row3.setBackgroundResource(R.color.grayDark)
+                row3.setBackgroundResource(R.drawable.team_shape_selected)
             }
             if (team4.round >= round.round + 1 || team4.round == Rounds.Winner.round) {
                 (row4.team4 as MaterialTextView).setTextColor(Color.WHITE)
-                row4.setBackgroundResource(R.color.grayDark)
+                row4.setBackgroundResource(R.drawable.team_shape_selected)
             }
-
             if (listener != null) {
                 row1.setOnClickListener {
                     listener?.onItemClick(groups[position]?.get(0)!!, row1, row1.team1)

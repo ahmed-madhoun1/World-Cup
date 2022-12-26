@@ -16,7 +16,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TableRow android:id="@+id/rowHeader">
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rowHeader">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvTitleGroup"
@@ -33,7 +36,10 @@
         </TableRow>
 
         <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/row1"
+            android:gravity="start|center"
             android:layout_marginTop="8dp"
             android:background="@drawable/team_shape"
             android:padding="5dp">
@@ -52,7 +58,10 @@
         </TableRow>
 
         <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/row2"
+            android:gravity="start|center"
             android:layout_marginTop="5dp"
             android:background="@drawable/team_shape"
             android:padding="5dp">
@@ -72,8 +81,11 @@
         </TableRow>
 
         <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/row3"
             android:layout_marginTop="5dp"
+            android:gravity="start|center"
             android:background="@drawable/team_shape"
             android:padding="5dp">
 
@@ -92,16 +104,18 @@
         </TableRow>
 
         <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/row4"
             android:layout_marginTop="5dp"
             android:background="@drawable/team_shape"
+            android:gravity="start|center"
             android:padding="5dp">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/team4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:text="Argentina"
                 android:textColor="@color/textColor"
                 android:textSize="22sp"

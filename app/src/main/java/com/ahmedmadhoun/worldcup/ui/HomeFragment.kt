@@ -17,7 +17,6 @@ import com.ahmedmadhoun.worldcup.adapters.NationalTeamsEliminationAdapter
 import com.ahmedmadhoun.worldcup.adapters.Rounds
 import com.ahmedmadhoun.worldcup.data.local.NationalTeam
 import com.ahmedmadhoun.worldcup.databinding.FragmentHomeBinding
-import com.google.android.datatransport.cct.internal.LogEvent
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -58,7 +57,7 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
 
         binding.apply {
             fabNext.setOnClickListener {
-                if (page < 4) {
+                if (page < 5) {
                     page++
                     when (page) {
                         0 -> {
@@ -70,28 +69,28 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                         1 -> {
                             page = 1
                             fabPrev.visibility = View.VISIBLE
-                            if (!viewModel.isRecyclerViewActive.value!!&& round16List.isEmpty()) {
+                            if (!viewModel.isRecyclerViewActive.value!! && round16List.isEmpty()) {
                                 viewModel.getData(1)
                             }
                         }
                         2 -> {
                             page = 2
                             fabPrev.visibility = View.VISIBLE
-                            if (!viewModel.isRecyclerViewActive.value!!&& round8List.isEmpty()) {
+                            if (!viewModel.isRecyclerViewActive.value!! && round8List.isEmpty()) {
                                 viewModel.getData(2)
                             }
                         }
                         3 -> {
                             page = 3
                             fabPrev.visibility = View.VISIBLE
-                            if (!viewModel.isRecyclerViewActive.value!!&& round4List.isEmpty()) {
+                            if (!viewModel.isRecyclerViewActive.value!! && round4List.isEmpty()) {
                                 viewModel.getData(3)
                             }
                         }
                         4 -> {
                             page = 4
                             fabPrev.visibility = View.VISIBLE
-                            if (!viewModel.isRecyclerViewActive.value!!&& round2List.isEmpty()) {
+                            if (!viewModel.isRecyclerViewActive.value!! && round2List.isEmpty()) {
                                 viewModel.getData(4)
                             }
                         }
@@ -127,9 +126,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                     }
                 }
             }
-            fabDeleteAll.setOnClickListener {
-                viewModel.deleteAllNationalTeams()
-            }
         }
 
     }
@@ -142,8 +138,8 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             if (selectedItem.id == nationalTeam.id) {
                 selectedList.removeAt(index)
 //                list.add(selectedItem)
-                (itemName as MaterialTextView).setTextColor(Color.parseColor("#3D3D3D"));
-                itemView.setBackgroundResource(R.color.gray)
+                (itemName as MaterialTextView).setTextColor(Color.parseColor("#3D3D3D"))
+                itemView.setBackgroundResource(R.drawable.team_shape)
                 return
             }
         }
@@ -163,7 +159,7 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
 //        list.remove(selectedItem)
         selectedList.add(selectedItem.copy(round = selectedItem.round + 1))
         (itemName as MaterialTextView).setTextColor(Color.WHITE)
-        itemView.setBackgroundResource(R.color.grayDark)
+        itemView.setBackgroundResource(R.drawable.team_shape_selected)
     }
 
     private fun setupRecyclerView() {
@@ -193,12 +189,10 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
     private fun observeOnData() {
         lifecycleScope.launchWhenStarted {
             viewModel.nationalTeams.asFlow().collectLatest { nationalTeams ->
-                if (nationalTeams.isNullOrEmpty()) {
+                if (nationalTeams.isEmpty()) {
                     fabClicked(nationalTeams)
-                    Log.e("nationalTeams", "Read from static ")
                 } else {
                     viewModel.setIsRecyclerViewActive(false)
-                    Log.e("nationalTeams", "Read from database ")
                     // deactivate recycler view
                     fabClicked(nationalTeams)
                 }
@@ -218,12 +212,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             }
             round32List.addAll(dList)
             round16List.addAll(selectedList)
-            Log.e("TAG", "list: ${dList}")
-            Log.e("TAG", "list: ${dList.size}")
-            Log.e("TAG", "round32List: ${round32List}")
-            Log.e("TAG", "round32List: ${round32List.size}")
-            Log.e("TAG", "selectedList: ${selectedList.size}")
-            Log.e("TAG", "selectedList: ${selectedList}")
             selectedList.clear()
         }
     }
@@ -263,12 +251,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                 round16List.add(it)
             }
             round8List.addAll(selectedList)
-            Log.e("TAG", "round16List: ${round16List}")
-            Log.e("TAG", "round16List: ${round16List.size}")
-            Log.e("TAG", "selectedList: ${selectedList.size}")
-            Log.e("TAG", "selectedList: ${selectedList}")
-            Log.e("TAG", "round8List: ${round8List.size}")
-            Log.e("TAG", "round8List: ${round8List}")
             selectedList.clear()
         }
     }
@@ -296,10 +278,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                 round8List.add(it)
             }
             round4List.addAll(selectedList)
-            Log.e("TAG", "round8List: ${round8List}")
-            Log.e("TAG", "round8List: ${round8List.size}")
-            Log.e("TAG", "selectedList: ${selectedList.size}")
-            Log.e("TAG", "selectedList: ${selectedList}")
             selectedList.clear()
         }
     }
@@ -321,96 +299,20 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                 round4List.add(it)
             }
             round2List.addAll(selectedList)
-            Log.e("TAG", "round4List: ${round4List}")
-            Log.e("TAG", "round4List: ${round4List.size}")
-            Log.e("TAG", "selectedList: ${selectedList.size}")
-            Log.e("TAG", "selectedList: ${selectedList}")
-            Log.e("TAG", "round2List: ${round2List.size}")
-            Log.e("TAG", "round2List: ${round2List}")
             selectedList.clear()
         }
     }
 
     private fun setupRound16Deactivate() {
-        var group = 0
-        val round8Items = round16List.filter { it.round == Rounds.Round16.round }
-        val round4Items = round16List.filter { it.round == Rounds.Round8.round }
-        round16List.clear()
-        round8Items.zip(round4Items).forEach { pair ->
-            pair.first.group = group
-            pair.second.group = group
-            round16List.add(pair.first)
-            round16List.add(pair.second)
-            group += 1
-        }
-        Log.e("asdfsassdf", "round32List: ${round32List}")
-        Log.e("asdfsassdf", "round32List: ${round32List.size}")
-        Log.e("asdfsassdf", "round16List: ${round16List}")
-        Log.e("asdfsassdf", "round16List: ${round16List.size}")
-        Log.e("asdfsassdf", "round8List: ${round8List}")
-        Log.e("asdfsassdf", "round8List: ${round8List.size}")
-        Log.e("asdfsassdf", "round4List: ${round4List}")
-        Log.e("asdfsassdf", "round4List: ${round4List.size}")
-        Log.e("asdfsassdf", "round2List: ${round2List}")
-        Log.e("asdfsassdf", "round2List: ${round2List.size}")
+        sortByGroup(round16List, Rounds.Round16)
     }
 
     private fun setupRound8Deactivate() {
-        Log.e("asdfsassdf", "round32List: ${round32List}")
-        Log.e("asdfsassdf", "round32List: ${round32List.size}")
-        Log.e("asdfsassdf", "round16List: ${round16List}")
-        Log.e("asdfsassdf", "round16List: ${round16List.size}")
-        Log.e("asdfsassdf", "round8List: ${round8List}")
-        Log.e("asdfsassdf", "round8List: ${round8List.size}")
-        Log.e("asdfsassdf", "round4List: ${round4List}")
-        Log.e("asdfsassdf", "round4List: ${round4List.size}")
-        Log.e("asdfsassdf", "round2List: ${round2List}")
-        Log.e("asdfsassdf", "*************************************************")
-        var group = 0
-        val round8Items = round8List.filter { it.round == Rounds.Round8.round }
-        val round4Items = round8List.filter { it.round == Rounds.Round4.round }
-        round8List.clear()
-        round8Items.zip(round4Items).forEach { pair ->
-            pair.first.group = group
-            pair.second.group = group
-            round8List.add(pair.first)
-            round8List.add(pair.second)
-            group += 1
-        }
-        Log.e("asdfsassdf", "round32List: ${round32List}")
-        Log.e("asdfsassdf", "round32List: ${round32List.size}")
-        Log.e("asdfsassdf", "round16List: ${round16List}")
-        Log.e("asdfsassdf", "round16List: ${round16List.size}")
-        Log.e("asdfsassdf", "round8List: ${round8List}")
-        Log.e("asdfsassdf", "round8List: ${round8List.size}")
-        Log.e("asdfsassdf", "round4List: ${round4List}")
-        Log.e("asdfsassdf", "round4List: ${round4List.size}")
-        Log.e("asdfsassdf", "round2List: ${round2List}")
-        Log.e("asdfsassdf", "round2List: ${round2List.size}")
+        sortByGroup(round8List, Rounds.Round8)
     }
 
     private fun setupRound4Deactivate() {
-        var group = 0
-        val round8Items = round4List.filter { it.round == Rounds.Round4.round }
-        val round4Items = round4List.filter { it.round == Rounds.Round2.round }
-        round4List.clear()
-        round8Items.zip(round4Items).forEach { pair ->
-            pair.first.group = group
-            pair.second.group = group
-            round4List.add(pair.first)
-            round4List.add(pair.second)
-            group += 1
-        }
-        Log.e("asdfsassdf", "round32List: ${round32List}")
-        Log.e("asdfsassdf", "round32List: ${round32List.size}")
-        Log.e("asdfsassdf", "round16List: ${round16List}")
-        Log.e("asdfsassdf", "round16List: ${round16List.size}")
-        Log.e("asdfsassdf", "round8List: ${round8List}")
-        Log.e("asdfsassdf", "round8List: ${round8List.size}")
-        Log.e("asdfsassdf", "round4List: ${round4List}")
-        Log.e("asdfsassdf", "round4List: ${round4List.size}")
-        Log.e("asdfsassdf", "round2List: ${round2List}")
-        Log.e("asdfsassdf", "round2List: ${round2List.size}")
+        sortByGroup(round4List, Rounds.Round4)
     }
 
     private fun setupRound2Deactivate() {
@@ -418,16 +320,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
         round2List.forEachIndexed { index, nationalTeam ->
             round2List[index] = nationalTeam.copy(group = group)
         }
-        Log.e("asdfsassdf", "round32List: ${round32List}")
-        Log.e("asdfsassdf", "round32List: ${round32List.size}")
-        Log.e("asdfsassdf", "round16List: ${round16List}")
-        Log.e("asdfsassdf", "round16List: ${round16List.size}")
-        Log.e("asdfsassdf", "round8List: ${round8List}")
-        Log.e("asdfsassdf", "round8List: ${round8List.size}")
-        Log.e("asdfsassdf", "round4List: ${round4List}")
-        Log.e("asdfsassdf", "round4List: ${round4List.size}")
-        Log.e("asdfsassdf", "round2List: ${round2List}")
-        Log.e("asdfsassdf", "round2List: ${round2List.size}")
     }
 
     private fun setupWinner() {
@@ -440,6 +332,7 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                 round2List.add(it.copy(round = Rounds.Winner.round))
             }
             selectedList.clear()
+            setupFinal()
         }
     }
 
@@ -449,73 +342,49 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             round32List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 0))
             }
-            Log.e("FINAL", "setupFinal: ${round32List}")
-            Log.e("FINAL", "setupFinal: ${round32List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round16List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 1))
             }
-            Log.e("FINAL", "setupFinal: ${round16List}")
-            Log.e("FINAL", "setupFinal: ${round16List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round8List.forEach {
                 val item = it.copy(listType = 2)
                 viewModel.insertNationalTeam(item)
-                Log.e("FINALAA", "setupFinal: ${item}")
             }
-            Log.e("FINAL", "setupFinal: ${round8List}")
-            Log.e("FINALAA", "setupFinal: ${round8List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round4List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 3))
             }
-            Log.e("FINAL", "setupFinal: ${round4List}")
-            Log.e("FINAL", "setupFinal: ${round4List.size}")
         }
         lifecycleScope.launchWhenStarted {
             round2List.forEach {
                 viewModel.insertNationalTeam(it.copy(listType = 4))
             }
-            Log.e("FINAL", "setupFinal: ${round2List}")
-            Log.e("FINAL", "setupFinal: ${round2List.size}")
         }
         Toast.makeText(requireActivity(), "Items Added", Toast.LENGTH_SHORT).show()
     }
 
     private fun fabClicked(nationalTeams: List<NationalTeam>) {
         if (!viewModel.isRecyclerViewActive.value!!) {
-            Log.e("FFFFFFFF", "I AMMM FUCKIN HEREEEEEEEEEEE")
             when (nationalTeams[0].listType) {
                 0 -> {
                     list.addAll(nationalTeams)
                     round32List.addAll(nationalTeams)
-                    Log.e("asdfsadf1", "round32List=> $round32List size => ${round32List.size}")
                 }
                 1 -> {
                     round16List.addAll(nationalTeams)
-                    Log.e("asdfsadf", "round16List=> $round16List size => ${round16List.size}")
-
                 }
                 2 -> {
                     round8List.addAll(nationalTeams)
-                    Log.e(
-                        "ggggggggggggg",
-                        "round8List=> $nationalTeams size => ${nationalTeams.size}"
-                    )
-
                 }
                 3 -> {
                     round4List.addAll(nationalTeams)
-                    Log.e("LISTS", "round4List=> $round4List size => ${round4List.size}")
-
                 }
                 4 -> {
                     round2List.addAll(nationalTeams)
-                    Log.e("LISTS", "round2List=> $round2List size => ${round2List.size}")
-
                 }
             }
             if (page == 0) {
@@ -538,8 +407,6 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
             }
         } else {
             if (page == 0) {
-                Log.e("NEW", "First page => $page ")
-                Log.e("NEW", "selectedList before => $selectedList ")
                 list.addAll(
                     mutableListOf(
                         NationalTeam(id = 1, name = "QATAR", round = 0, group = 0, listType = 0),
@@ -713,71 +580,31 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                 }, this@HomeFragment, Rounds.Round32)
                 binding.recyclerView.adapter = adapter
                 selectedList.clear()
-                Log.e("NEW", "selectedList after => $selectedList ")
-                Log.e(
-                    "NEW",
-                    "********************************************************************************************************************************************************************************************** ",
-                )
             } else if (page == 1) {
-                Log.e("NEW", "Second page => $page ")
-                Log.e("NEW", "selectedList before => $selectedList ")
                 setupRound16()
                 setupAdapter(Rounds.Round16, round16List)
-                Log.e("round32List", "round32List: ${round32List}")
-                Log.e("round32List", "round16List: ${round16List}")
                 selectedList.clear()
-                Log.e("NEW", "selectedList after => $selectedList ")
-                Log.e(
-                    "NEW",
-                    "********************************************************************************************************************************************************************************************** ",
-                )
-
             } else if (round16List.isNotEmpty() && page == 2) {
-                Log.e("NEW", "Third page => $page ")
-                Log.e("NEW", "selectedList before => $selectedList ")
-                Log.e("NEW", "round8List => $round8List ")
                 setupRound8()
-                Log.e("NEW", "round8List sorting ?=> $round8List ")
                 setupAdapter(Rounds.Round8, round8List)
                 selectedList.clear()
-                Log.e("NEW", "selectedList after => $selectedList ")
-                Log.e(
-                    "NEW",
-                    "********************************************************************************************************************************************************************************************** ",
-                )
             } else if (round8List.isNotEmpty() && page == 3) {
-                Log.e("NEW", "Fourth page => $page ")
-                Log.e("NEW", "selectedList before => $selectedList ")
                 setupRound4()
                 setupAdapter(Rounds.Round4, round4List)
                 selectedList.clear()
-                Log.e("NEW", "selectedList after => $selectedList ")
-                Log.e(
-                    "NEW",
-                    "********************************************************************************************************************************************************************************************** ",
-                )
-
             } else if (round4List.isNotEmpty() && page == 4) {
-                Log.e("NEW", "Fifth page => $page ")
-                Log.e("NEW", "selectedList before => $selectedList ")
                 setupRound2()
                 setupAdapter(Rounds.Round2, round2List)
                 selectedList.clear()
-                Log.e("NEW", "selectedList after => $selectedList ")
-                Log.e(
-                    "NEW",
-                    "********************************************************************************************************************************************************************************************** ",
-                )
             } else if (selectedList.size == 1 && round2List.isNotEmpty()) {
                 setupWinner()
-                setupFinal()
             } else {
                 Toast.makeText(requireActivity(), "Select team", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    fun sortByGroup(list: MutableList<NationalTeam>, round: Rounds): MutableList<NationalTeam> {
+    private fun sortByGroup(list: MutableList<NationalTeam>, round: Rounds): MutableList<NationalTeam> {
         var group = 0
         val round8Items = list.filter { it.round == round.round }
         val round4Items = list.filter { it.round == round.round + 1 }

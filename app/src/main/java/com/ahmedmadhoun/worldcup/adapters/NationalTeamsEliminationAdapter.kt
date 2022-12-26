@@ -41,11 +41,11 @@ class NationalTeamsEliminationAdapter @Inject constructor(
             row2.team2.text = team2.name
             if (team1.round >= round.round + 1 || team1.round == Rounds.Winner.round) {
                 (row1.team1 as MaterialTextView).setTextColor(Color.WHITE)
-                row1.setBackgroundResource(R.color.grayDark)
+                row1.setBackgroundResource(R.drawable.team_shape_selected)
             }
             if (team2.round >= round.round + 1 || team2.round == Rounds.Winner.round) {
                 (row2.team2 as MaterialTextView).setTextColor(Color.WHITE)
-                row2.setBackgroundResource(R.color.grayDark)
+                row2.setBackgroundResource(R.drawable.team_shape_selected)
             }
             row1.setOnClickListener {
                 listener.onItemClick(groups[position]?.get(0)!!, row1, row1.team1)

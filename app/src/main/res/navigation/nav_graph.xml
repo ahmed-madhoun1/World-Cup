@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/infoFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ahmedmadhoun.worldcup.ui.HomeFragment"
-        android:label="World Cup"
+        android:label="Select The Qualified"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.ahmedmadhoun.worldcup.ui.InfoFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_info">
+        <action
+            android:id="@+id/action_infoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
