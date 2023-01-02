@@ -274,6 +274,8 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                     }
                 }
             }
+
+
             val keysOfB = selectedList.map { it.id }
             round8List.removeAll {
                 it.id in keysOfB
