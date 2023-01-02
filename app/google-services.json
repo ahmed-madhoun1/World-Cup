@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "194130455038",
-    "project_id": "worldcup-1a560",
-    "storage_bucket": "worldcup-1a560.appspot.com"
+    "project_number": "688051963472",
+    "project_id": "newtestproject-8b3a3",
+    "storage_bucket": "newtestproject-8b3a3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:194130455038:android:ebc935f57a505e4ae2f8af",
+        "mobilesdk_app_id": "1:688051963472:android:1395d1f415015d44437355",
         "android_client_info": {
           "package_name": "com.ahmedmadhoun.worldcup"
         }
       },
       "oauth_client": [
         {
-          "client_id": "194130455038-31n70vkibk66m03j7u8pmhppjrjosk70.apps.googleusercontent.com",
+          "client_id": "688051963472-fg7a3gs3qi7u27qla8e7v5kedkocjqai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ahmedmadhoun.worldcup",
+            "certificate_hash": "ff6a583d8427b8145c541c69ee37ccfbd1f0bc2d"
+          }
+        },
+        {
+          "client_id": "688051963472-ochjcg1msecrbcbned2kvkcjc21vgqgs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAMFdMJxr2JE1ytPWE-rvCl1qd7Hzi6xUU"
+          "current_key": "AIzaSyCK8PBasIopq081S3t6do5TIly5LFw2kN4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "194130455038-31n70vkibk66m03j7u8pmhppjrjosk70.apps.googleusercontent.com",
+              "client_id": "688051963472-ochjcg1msecrbcbned2kvkcjc21vgqgs.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

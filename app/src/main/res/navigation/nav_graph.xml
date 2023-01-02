@@ -7,16 +7,31 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.ahmedmadhoun.worldcup.ui.HomeFragment"
-        android:label="Select The Qualified"
+        android:name="com.ahmedmadhoun.worldcup.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.ahmedmadhoun.worldcup.ui.InfoFragment"
+        android:name="com.ahmedmadhoun.worldcup.ui.info.InfoFragment"
         android:label="Home"
         tools:layout="@layout/fragment_info">
         <action
             android:id="@+id/action_infoFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_petsFragment"
+            app:destination="@id/petsFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_populationFragment"
+            app:destination="@id/populationFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/petsFragment"
+        android:name="com.ahmedmadhoun.worldcup.ui.pets.PetsFragment"
+        android:label="Pets"
+        tools:layout="@layout/fragment_pets" />
+    <fragment
+        android:id="@+id/populationFragment"
+        android:name="com.ahmedmadhoun.worldcup.ui.population.PopulationFragment"
+        android:label="Population"
+        tools:layout="@layout/fragment_population" />
 </navigation>

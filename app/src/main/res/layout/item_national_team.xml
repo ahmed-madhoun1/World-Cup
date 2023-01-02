@@ -1,130 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_marginTop="20dp"
+    android:orientation="vertical">
 
+    <TableRow
+        android:id="@+id/rowHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp">
 
-    <TableLayout
-        android:id="@+id/tab"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TableRow
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitleGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rowHeader">
+            android:text="Group Name"
+            android:textColor="@color/textColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
+    </TableRow>
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvTitleGroup"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/coinsCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/coins_card"
+        card_view:cardBackgroundColor="#F5F5F5"
+        card_view:cardCornerRadius="20dp"
+        card_view:cardElevation="0dp">
+
+
+        <TableLayout
+            android:id="@+id/tab"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="10dp">
+
+
+            <TableRow
+                android:id="@+id/row1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
+
+                android:weightSum="5">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/team1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_weight="4"
+                    android:gravity="start"
+                    android:text="Argentina"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
+
+                <CheckBox
+                    android:id="@+id/checkbox1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:button="@drawable/custom_checkbox"
+                    android:gravity="end|start|center" />
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
+
+            <TableRow
+                android:id="@+id/row2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Group Name"
-                android:textColor="@color/textColor"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
-        </TableRow>
+                android:layout_marginTop="5dp"
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/row1"
-            android:gravity="start|center"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/team_shape"
-            android:padding="5dp">
+                android:gravity="start|start|center"
+                android:weightSum="5">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/team1"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/team2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_weight="4"
+                    android:gravity="start"
+                    android:text="Argentina"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
+
+                <CheckBox
+                    android:id="@+id/checkbox2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:button="@drawable/custom_checkbox"
+                    android:gravity="end|start|center" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
+
+            <TableRow
+                android:id="@+id/row3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Argentina"
-                android:textColor="@color/textColor"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
-        </TableRow>
+                android:layout_marginTop="5dp"
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/row2"
-            android:gravity="start|center"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/team_shape"
-            android:padding="5dp">
+                android:gravity="start|start|center"
+                android:weightSum="5">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/team2"
-                android:layout_width="wrap_content"
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/team3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_weight="4"
+                    android:gravity="start"
+                    android:text="Argentina"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
 
-                android:layout_height="wrap_content"
-                android:text="Argentina"
-                android:textColor="@color/textColor"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
-        </TableRow>
+                <CheckBox
+                    android:id="@+id/checkbox3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:button="@drawable/custom_checkbox"
+                    android:gravity="end|start|center" />
+            </TableRow>
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/row3"
-            android:layout_marginTop="5dp"
-            android:gravity="start|center"
-            android:background="@drawable/team_shape"
-            android:padding="5dp">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/team3"
-                android:layout_width="wrap_content"
-
-                android:layout_height="wrap_content"
-                android:text="Argentina"
-                android:textColor="@color/textColor"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/row4"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/team_shape"
-            android:gravity="start|center"
-            android:padding="5dp">
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/team4"
+            <TableRow
+                android:id="@+id/row4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Argentina"
-                android:textColor="@color/textColor"
-                android:textSize="22sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
-        </TableRow>
-    </TableLayout>
+                android:layout_marginTop="5dp"
+
+                android:gravity="start|start|center"
+                android:weightSum="5">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/team4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center"
+                    android:layout_weight="4"
+                    android:gravity="start"
+                    android:text="Argentina"
+                    android:textColor="@color/textColor"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleGroup" />
+
+                <CheckBox
+                    android:id="@+id/checkbox4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:button="@drawable/custom_checkbox"
+                    android:gravity="end|start|center" />
+            </TableRow>
+        </TableLayout>
 
 
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

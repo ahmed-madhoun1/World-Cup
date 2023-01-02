@@ -4,53 +4,221 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeFragment">
+    tools:context=".ui.home.HomeFragment">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvScreenName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:text="Group Stage"
+        android:textColor="@color/primaryColor"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal1"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertical2"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertical1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:max="160"
+        android:progress="40"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertical2"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertical1"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal3"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertical2"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertical1"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal2"
+        tools:listitem="@layout/item_national_team" />
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvWinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@mipmap/winner_title"
+        android:elevation="0dp"
+        android:gravity="center"
+        android:text="winnerTitle"
+        android:textColor="@color/primaryColor"
+        android:visibility="gone"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal3"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertical2"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertical1"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@mipmap/sheet_card"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardElevation="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal3">
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/fabNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@mipmap/groups_next_button"
+            android:text="Next"
+            android:textColor="#FFFFFF"
+            tools:ignore="HardcodedText" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNext"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="18dp"
-        app:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="ContentDescription" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submitBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="20dp"
+            android:background="@mipmap/groups_next_button"
+            android:text="Submit the winner"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
 
+    </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabPrev"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="18dp"
-        android:visibility="gone"
-        app:backgroundTint="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="ContentDescription" />
+    <ImageView
+        android:id="@+id/progressBall1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/banner2"
+        android:src="@mipmap/ball_red"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertical1"
+        app:layout_constraintStart_toStartOf="@id/guidelineVertical1"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/saveDataBtn"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="0dp"
-        android:text="Save"
-        android:visibility="gone"
-        app:backgroundTint="@color/buttonColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <ImageView
+        android:id="@+id/progressBall2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/banner2"
+        android:src="@mipmap/ball_white"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVerticalBall1"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalBall1"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1" />
 
+    <ImageView
+        android:id="@+id/progressBall3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/banner2"
+        android:src="@mipmap/ball_white"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVerticalBall2"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalBall2"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1" />
+
+    <ImageView
+        android:id="@+id/progressBall4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/banner2"
+        android:src="@mipmap/ball_white"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVerticalBall3"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalBall3"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1" />
+
+    <ImageView
+        android:id="@+id/progressESim5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/banner2"
+        android:src="@mipmap/progress_end_icon"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
+        app:layout_constraintEnd_toEndOf="@id/guidelineVertical2"
+        app:layout_constraintStart_toStartOf="@id/guidelineVerticalBall4"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.89" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineHorizontal1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertical2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVertical1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalBall1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.3" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalBall2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalBall3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineVerticalBall4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

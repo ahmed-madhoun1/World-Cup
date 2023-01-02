@@ -1,14 +1,13 @@
 
 package com.ahmedmadhoun.worldcup.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmedmadhoun.worldcup.R
 import com.ahmedmadhoun.worldcup.data.local.NationalTeam
-import com.google.android.material.textview.MaterialTextView
 import kotlinx.android.synthetic.main.item_national_team.view.*
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -40,7 +39,7 @@ class NationalTeamsAdapter @Inject constructor(
         )
 
     interface OnItemClickListener {
-        fun onItemClick(selectedItem: NationalTeam, itemView: View, itemName: View)
+        fun onItemClick(selectedItem: NationalTeam, itemView: View, itemName: Boolean)
     }
 
     var checkRound by Delegates.notNull<Boolean>()
@@ -90,33 +89,29 @@ class NationalTeamsAdapter @Inject constructor(
 
 
             if (team1.round >= round.round + 1 || team1.round == Rounds.Winner.round) {
-                (row1.team1 as MaterialTextView).setTextColor(Color.WHITE)
-                row1.setBackgroundResource(R.drawable.team_shape_selected)
+                (row1.checkbox1 as CheckBox).isSelected = true
             }
             if (team2.round >= round.round + 1 || team2.round == Rounds.Winner.round) {
-                (row2.team2 as MaterialTextView).setTextColor(Color.WHITE)
-                row2.setBackgroundResource(R.drawable.team_shape_selected)
+                (row2.checkbox2 as CheckBox).isSelected = true
             }
             if (team3.round >= round.round + 1 || team3.round == Rounds.Winner.round) {
-                (row3.team3 as MaterialTextView).setTextColor(Color.WHITE)
-                row3.setBackgroundResource(R.drawable.team_shape_selected)
+                (row3.checkbox3 as CheckBox).isSelected = true
             }
             if (team4.round >= round.round + 1 || team4.round == Rounds.Winner.round) {
-                (row4.team4 as MaterialTextView).setTextColor(Color.WHITE)
-                row4.setBackgroundResource(R.drawable.team_shape_selected)
+                (row4.checkbox4 as CheckBox).isSelected = true
             }
             if (listener != null) {
-                row1.setOnClickListener {
-                    listener?.onItemClick(groups[position]?.get(0)!!, row1, row1.team1)
+                row1.checkbox1.setOnCheckedChangeListener { buttonView, isChecked ->
+                    listener?.onItemClick(groups[position]?.get(0)!!, buttonView, isChecked)
                 }
-                row2.setOnClickListener {
-                    listener?.onItemClick(groups[position]?.get(1)!!, row2, row2.team2)
+                row2.checkbox2.setOnCheckedChangeListener { buttonView, isChecked ->
+                    listener?.onItemClick(groups[position]?.get(1)!!, buttonView, isChecked)
                 }
-                row3.setOnClickListener {
-                    listener?.onItemClick(groups[position]?.get(2)!!, row3, row3.team3)
+                row3.checkbox3.setOnCheckedChangeListener { buttonView, isChecked ->
+                    listener?.onItemClick(groups[position]?.get(2)!!, buttonView, isChecked)
                 }
-                row4.setOnClickListener {
-                    listener?.onItemClick(groups[position]?.get(3)!!, row4, row4.team4)
+                row4.checkbox4.setOnCheckedChangeListener { buttonView, isChecked ->
+                    listener?.onItemClick(groups[position]?.get(3)!!, buttonView, isChecked)
                 }
             }
         }

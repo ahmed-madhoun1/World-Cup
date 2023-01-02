@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ahmedmadhoun.worldcup">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".application.WorldCupApplication"
         android:allowBackup="true"
