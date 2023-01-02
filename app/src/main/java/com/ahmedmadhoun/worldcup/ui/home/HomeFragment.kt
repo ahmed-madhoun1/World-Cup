@@ -251,6 +251,8 @@ class HomeFragment @Inject constructor() : Fragment(R.layout.fragment_home),
                 if(it.name == "ARGENTINA"){
                     FirebaseInAppMessaging.getInstance().triggerEvent("new_event")
                 }
+
+
             }
             round8List.addAll(selectedList)
             selectedList.clear()
